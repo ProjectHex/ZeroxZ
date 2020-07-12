@@ -101,11 +101,62 @@ end)
 
 
 
+function CreateESPPart(BodyPart,color)
+local ESPPartparent = BodyPart
+local Box = Instance.new("BoxHandleAdornment")
+Box.Size = BodyPart.Size + Vector3.new(0.1, 0.1, 0.1)
+Box.Name = "ESPPart"
+Box.Adornee = ESPPartparent
+Box.Color3 = color
+Box.AlwaysOnTop = true
+Box.ZIndex = 5
+Box.Transparency = 0.8
+Box.Parent = BodyPart
+end
+
+local zombs = workspace.Baddies:getChildren()
+for i=1,#zombs do
+local bodypart = zombs[i]:getChildren()
+for i=1,#bodypart do
+if bodypart[i].ClassName == "Part" then
+CreateESPPart(bodypart[i], Color3.fromRGB(0,255,0))
+end
+end
+end
 
 
 
+function onKeyPress(inputObject, gameProcessedEvent)
+	if inputObject.KeyCode == Enum.KeyCode.O then
+		local m = require(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Weapon1"))
+m.StoredAmmo = math.huge
+m.MagSize = math.huge
+m.Semi = false
+m.Damage = {Max = 1500000, Min = 10000}
+m.Spread = {Min = 0, Max = 0}
+m.ViewKick = {
+Pitch = {Min = 0, Max = 0},
+Yaw = {Min = 0, Max = 0}
+}
+m.BulletPenetration = 1500
+m.FireTime = 0
+	end
+end
+ 
+game:GetService("UserInputService").InputBegan:connect(onKeyPress)
 
+function onKeyPress(inputObject, gameProcessedEvent)
+	if inputObject.KeyCode == Enum.KeyCode.I then
+		for _,v in pairs(debug.getregistry()) do
+   if typeof(v) == "table" then
+       if v.Ammo then
+           v.Ammo = math.huge
+       end
+   end
+		   end
 
+	end
+end
 
 
 
@@ -172,4 +223,68 @@ z2.Position = Vector3.new(0,9991,0)
 wait(5)
 game.Players.LocalPlayer.Character=ch
 
+end)
+
+local Combat = Library:CreateTab("Combat", "Combat Stuffs")
+Combat:CreateButton("Zombies ESP", function() --you dont need "arg" for a button
+ workspace.Baddies.ChildAdded:Connect(function(zomb)
+    wait(1)
+    local bodypart = zomb:getChildren()
+    for i=1,#bodypart do
+    if bodypart[i].ClassName == "Part" then
+    CreateESPPart(bodypart[i], Color3.fromRGB(94, 255, 180))
+    end
+    end
+    end)
+end)
+Combat:CreateButton("TP Zombiess Head", function() --you dont need "arg" for a button
+local pos = 5,0,5
+
+local zomb = workspace.Baddies:GetChildren()
+for i=1,#zomb do
+    zomb[i].HeadBox.Transparency = 0
+    zomb[i].HeadBox.Material = "Neon"
+    zomb[i].HeadBox.CanCollide = false
+    zomb[i].HeadBox.Anchored = true
+    zomb[i].HeadBox.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position+Vector3.new(pos)
+end
+end)
+
+local Teleports = Library:CreateTab("Teleports", "Teleports Stuffs")
+
+Teleports:CreateButton("Barrier Back 1", function() --you dont need "arg" for a button
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(38.7996941, 20.2000065, 64.9929962))
+end)
+Teleports:CreateButton("Barrier Back 2", function() --you dont need "arg" for a button
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(39.9715347, 20.200016, -32.2160835))
+end)
+Teleports:CreateButton("Barrier Back 3", function() --you dont need "arg" for a button
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(75.7908325, 3.20002508, -29.1730213))
+end)
+Teleports:CreateButton("Barrier Back 4", function() --you dont need "arg" for a button
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(74.7251892, 20.9555206, 103.646507))
+end)
+Teleports:CreateButton("Library", function() --you dont need "arg" for a button
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-66.9610825, 20.1990089, 2.16642976))
+end)
+Teleports:CreateButton("Bathroom", function() --you dont need "arg" for a button
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(63.4641228, 20.2000504, 78.6364136))
+end)
+Teleports:CreateButton("Lobby", function() --you dont need "arg" for a button
+    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-10.6820145, -494.5, -2.53165269))
+end)
+Teleports:CreateButton("Backyard", function() --you dont need "arg" for a button
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(8.4164629, 3.20000005, -115.536255))
+end)
+Teleports:CreateButton("Spawn", function() --you dont need "arg" for a button
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-16.4724731, 3.20000005, -18.6810131))
+end)
+Teleports:CreateButton("PowerRoom", function() --you dont need "arg" for a button
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-3.92677093, 20.1999989, 91.4792633))
+end)
+Teleports:CreateButton("CenterYard", function() --you dont need "arg" for a button
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-0.663911641, 3.79999971, 41.9799118))
+end)
+Teleports:CreateButton("BuildingTop", function() --you dont need "arg" for a button
+game.Players.LocalPlayer.Character:MoveTo(Vector3.new(-3.20340729, 47.1415977, 4.63647652))
 end)
