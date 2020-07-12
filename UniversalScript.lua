@@ -170,12 +170,6 @@ z1.Position = Vector3.new(0,9999,0)
 z2.Position = Vector3.new(0,9991,0)
  game.Players.LocalPlayer.Character=prt
 wait(5)
- game.Players.LocalPlayer.Character=ch
-local poop = nil
- repeat wait() poop = game.Players.LocalPlayer.Character:FindFirstChild("Head") until poop ~= nil
-        wait(1)
-        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(saved)
-       
- end
+game.Players.LocalPlayer.Character=ch
 
 end)
